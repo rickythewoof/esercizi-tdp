@@ -50,7 +50,7 @@ int main(){
         float **matrix;
     } mat;
     mat a,b,c;
-    mat *f(mat a, mat b);   //funzione di matrice!
+    //mat *f(mat a, mat b);   //funzione di matrice!
     a = b;                  //SIDE EFFECT: matrix è di tipo puntatore, punta alla stessa zona di memoria
     return 0;
 }
