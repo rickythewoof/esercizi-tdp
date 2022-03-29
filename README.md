@@ -1,15 +1,16 @@
 # esercizi-tdp
 Esercizi che ho fatto io, non conosco come si scrive in markdown
 
-##esercitazioni 
+## esercitazioni 
 Nella cartella ci sono tutte le esercitazioni che ho fatto (+ punti bonus)
 
-###Per compilare
+### Per compilare
 
-'''
-g++ -o main main.c
-'''
+```
+g++ -o main main.c -lm
+```
 
-##lezioni
+
+## lezioni
 Ci sono le lezioni che seguo
 
