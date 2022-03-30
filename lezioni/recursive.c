@@ -19,6 +19,8 @@
         -inserire il caso base (=> if (..) return n)
         -definire caso ricorsivo (=> else return f(n))
 
+    Si usano i record di attivazione di f per sfruttare il fatto 
+    della ricorsione!  
 
 */
 
@@ -40,12 +42,27 @@ int fattoriale2(int n){
     else
         return n * fattoriale2(n-1);    //ricorsiva in quanto nella definizione viene chiamata la stessa funzione
 }
-
+/*
+    in fattoriale 2 viene prima fatta la chiamata n volte quanto la funzione prima chiama, poi quando
+    la variabile n arriva al valore base vengono chiamate tutte le altre,
+    utilizzando le CHIAMATE DI ATTIVAZIONE
+*/
 void copiaRicorsiva(FILE* i, FILE* o){  //metodo ricorsivo per copiare file, se carattere == EOF si ferma
     char x = fgetc(i);
     if (x!= EOF){
         fputc(x, o);
+        printf("%c\t",x);
         copiaRicorsiva(i,o);
+        printf("%c\n",x);
+    }
+}
+
+int fibonacci(int n){
+    if (n == 1 || n == 0){
+        return n;
+    }
+    else{
+        return fib(n-1)+fib(n-2);
     }
 }
 
