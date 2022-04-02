@@ -45,7 +45,9 @@ int fattoriale2(int n){
 /*
     in fattoriale 2 viene prima fatta la chiamata n volte quanto la funzione prima chiama, poi quando
     la variabile n arriva al valore base vengono chiamate tutte le altre,
-    utilizzando le CHIAMATE DI ATTIVAZIONE
+    utilizzando le CHIAMATE DI ATTIVAZIONE.
+
+    è comodo usare il diagramma di flusso
 */
 void copiaRicorsiva(FILE* i, FILE* o){  //metodo ricorsivo per copiare file, se carattere == EOF si ferma
     char x = fgetc(i);
@@ -62,7 +64,7 @@ int fibonacci(int n){
         return n;
     }
     else{
-        return fib(n-1)+fib(n-2);
+        return fibonacci(n-1)+fibonacci(n-2);
     }
 }
 
@@ -70,11 +72,12 @@ int main(){
     int n = 4;
     printf("Fattoriale (metodo non ricorsivo) di %d = %d\n", n, fattoriale1(n));
     printf("Fattoriale (metodo ricorsivo) di %d = %d\n", n, fattoriale2(n));
-    FILE* f_in = fopen("./lezioni/in.txt", "r");
-    FILE* f_out = fopen("./lezioni/out.txt", "w");
-    if(f_in == NULL || f_out == NULL)
-        exit(1);
-    copiaRicorsiva(f_in, f_out);
+    // FILE* f_in = fopen("./lezioni/in.txt", "r");
+    // FILE* f_out = fopen("./lezioni/out.txt", "w");
+    // if(f_in == NULL || f_out == NULL)
+    //     exit(1);
+    // copiaRicorsiva(f_in, f_out);
+    printf("Fibonacci di %d = %d\n", n, fibonacci(n));
     
     return 0;
 }
