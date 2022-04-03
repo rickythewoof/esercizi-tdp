@@ -15,16 +15,15 @@ float product(float vec[], int n){
         return vec[0] * product(vec+1, n-1);
 }
 
-void vec_integral(float* v, int n){
-    if (n == 0)
-        return;
-    else{
-        *v = sum(v, n);
-        return vec_integral(v+1, n-1);
-    }
+// void vec_integral(float* v, int n){
+//     if (n == 0)
+//         return;
+//     else{
+//         *v = sum(v, );
+//         return vec_integral(v+1, n-1);
+//     }
         
-}
-
+// }
 int length(char * s){
     if (*s == '\0'){
         return 0;
@@ -84,11 +83,12 @@ int main(int argc, char** argv){
     float array[] = {1,10,3,4};
     char* a = "ciaocomeva?";
     printf("PRODUCT = %lf\n",product(array, 4));
-    printf("INTEGRAL = "); vec_integral(array,4); print_array(array,4); printf("\n");
+    printf("INTEGRAL = "); print_array(array,4); printf("\n");
     printf("LENGHT = %d\n",length(a));
     printf("POSITION = %d\n",char_position(a,'b'));
     printf("LOWERCASE? = %d\n", is_lowercase(a));
-    char* copia = (char*)malloc(256*sizeof(char)); copy(copia, a);
+    char* copia = (char*)malloc(256*sizeof(char));
+    copy(copia, a);
     printf("copia = %s\n", copia);
     printf("lunghezza copia = %d\n", length(copia));
     concat(copia, a);
