@@ -16,7 +16,15 @@ int main(){
     char* message = "Ciao! come stai? Io tutto a posto";
     filter_write(message, file1);
     filter_write(message, file2);
-    printf("SAME? = %d\n", same_content(file1, file2));
+    fclose(file1);
+    fclose(file2);
+    FILE* f1 = fopen("./file1.txt","r");
+    if (f1 == NULL)
+        exit (1);
+    FILE* f2 = fopen("./file2.txt","r");
+    if (f2 == NULL)
+        exit (1);
+    printf("SAME? = %d\n", same_content(f1, f2));
     return 0;
 
 }
@@ -30,9 +38,9 @@ void filter_write(char * message, FILE * file){
 }
 
 bool same_content(FILE *f1, FILE *f2){
-    char c1 = fscanf(f1, "%c", &c1);
-    char c2 = fscanf(f1, "%c", &c2);
-    printf("%c uguale a %c?",c1,c2);
+    char c1 = fgetc(f1);
+    char c2 = fgetc(f2);
+    printf("%c uguale a %c\n",c1,c2);
     if (c1 == EOF && c2 == EOF)
         return true;
     else if (c1 == c2)

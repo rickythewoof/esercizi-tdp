@@ -15,15 +15,16 @@ float product(float vec[], int n){
         return vec[0] * product(vec+1, n-1);
 }
 
-// void vec_integral(float* v, int n){
-//     if (n == 0)
-//         return;
-//     else{
-//         *v = sum(v, );
-//         return vec_integral(v+1, n-1);
-//     }
+void vec_integral(float* v, int n){
+    if (n == 0)
+        return;
+    else{
+        *v = sum(v, n);
+        return vec_integral(v+1, n-1);
+    }
         
-// }
+}
+
 int length(char * s){
     if (*s == '\0'){
         return 0;
