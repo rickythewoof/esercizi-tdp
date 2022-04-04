@@ -53,6 +53,4 @@ dkms.conf
 
 #cartelle temporanee
 .vscode/
-
-#file vuoti senza estensioni
-*
+.txt
