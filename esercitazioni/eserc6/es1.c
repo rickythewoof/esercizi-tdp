@@ -34,13 +34,20 @@ int length(char * s){
     }
 }
 
+int char_position1(char* s, char ch, int pos);
+
 int char_position(char* s, char ch){
-    if (*s == ch)
-        return 0;
-    else if (*s == '\0')
-        return 0;
-    else
-        return 1 + char_position(s+1, ch);
+    return char_position1(s, ch, 0);
+}
+
+int char_position1(char* s, char ch, int pos){
+    if (s[pos] == '\0')
+        return -1;
+    else if (s[pos] == ch)
+        return pos;
+    else{
+        return char_position1(s, ch, pos+1);
+    }
 }
 
 void print_array(float* v, int n){
@@ -53,7 +60,7 @@ void print_array(float* v, int n){
 bool is_lowercase(char *s){
     if (*s == '\0')
         return true;
-    else if ((int) *s >= 97 && (int) *s <= 122)
+    else if (char_position("qwertyuiopasdfghjklzxcvbnm",*s) != -1)
         return is_lowercase(s+1);
     else
         return false;
@@ -82,11 +89,11 @@ void concat(char * dest, const char * src){
 
 int main(int argc, char** argv){
     float array[] = {1,10,3,4};
-    char* a = "ciaocomeva?";
+    char* a = "ciaocomeva";
     printf("PRODUCT = %lf\n",product(array, 4));
     printf("INTEGRAL = "); print_array(array,4); printf("\n");
     printf("LENGHT = %d\n",length(a));
-    printf("POSITION = %d\n",char_position(a,'b'));
+    printf("POSITION = %d\n",char_position(a,'!'));
     printf("LOWERCASE? = %d\n", is_lowercase(a));
     char* copia = (char*)malloc(256*sizeof(char));
     copy(copia, a);
