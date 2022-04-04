@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+
+
 float sum(float vec[], int n){
     if (n == 0)
         return 0;
@@ -60,10 +62,21 @@ void print_array(float* v, int n){
 bool is_lowercase(char *s){
     if (*s == '\0')
         return true;
-    else if (char_position("qwertyuiopasdfghjklzxcvbnm",*s) != -1)
+    else if (*s >= 'a' && *s <= 'z')
         return is_lowercase(s+1);
     else
         return false;
+}
+
+void to_uppercase(char *s){
+    if (*s == '\0')
+        return;
+    else if (*s >= 'a' && *s <= 'z'){
+        *s = *s - 32;
+        to_uppercase(s+1);
+    }
+    else
+        to_uppercase(s+1);
 }
 
 void copy(char * dest, char * src){
@@ -89,12 +102,13 @@ void concat(char * dest, const char * src){
 
 int main(int argc, char** argv){
     float array[] = {1,10,3,4};
-    char* a = "ciaocomeva";
+    char a[5] = {'c','i','a','o','\0'};
     printf("PRODUCT = %lf\n",product(array, 4));
     printf("INTEGRAL = "); print_array(array,4); printf("\n");
     printf("LENGHT = %d\n",length(a));
     printf("POSITION = %d\n",char_position(a,'!'));
     printf("LOWERCASE? = %d\n", is_lowercase(a));
+    printf("TO_UPPER = ");to_uppercase(a);printf("%s\n",a);
     char* copia = (char*)malloc(256*sizeof(char));
     copy(copia, a);
     printf("copia = %s\n", copia);
