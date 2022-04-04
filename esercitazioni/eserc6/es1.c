@@ -3,28 +3,29 @@
 #include <stdlib.h>
 
 
-
-float sum(float vec[], int n){
-    if (n == 0)
-        return 0;
-    else
-        return vec[0] + sum(vec+1,n-1);
-}
-float product(float vec[], int n){
+double product(float vec[], int n){
     if (n == 0)
         return 1;
     else
         return vec[0] * product(vec+1, n-1);
 }
 
-void vec_integral(float* v, int n){
-    if (n == 0)
+void vec_integral1(float* v, int n, int pos){
+    if (n == pos)
         return;
     else{
-        *v = sum(v, n);
-        return vec_integral(v+1, n-1);
+        for (int i = 0; i < pos; i++){
+            float val = v[i];
+            float valFIN = v[pos];
+            v[pos]+= v[i];
+        }
+        return vec_integral1(v, n, pos+1);
     }
         
+}
+
+void vec_integral(float* v, int n){
+    return vec_integral1(v, n, 0);
 }
 
 int length(char * s){
@@ -36,12 +37,6 @@ int length(char * s){
     }
 }
 
-int char_position1(char* s, char ch, int pos);
-
-int char_position(char* s, char ch){
-    return char_position1(s, ch, 0);
-}
-
 int char_position1(char* s, char ch, int pos){
     if (s[pos] == '\0')
         return -1;
@@ -50,6 +45,10 @@ int char_position1(char* s, char ch, int pos){
     else{
         return char_position1(s, ch, pos+1);
     }
+}
+
+int char_position(char* s, char ch){
+    return char_position1(s, ch, 0);
 }
 
 void print_array(float* v, int n){
@@ -102,9 +101,9 @@ void concat(char * dest, const char * src){
 
 int main(int argc, char** argv){
     float array[] = {1,10,3,4};
-    char a[5] = {'c','i','a','o','\0'};
+    char a[] = {'c','i','a','o','\0'};
     printf("PRODUCT = %lf\n",product(array, 4));
-    printf("INTEGRAL = "); print_array(array,4); printf("\n");
+    printf("INTEGRAL = "); vec_integral(array, 4); print_array(array,4); printf("\n");
     printf("LENGHT = %d\n",length(a));
     printf("POSITION = %d\n",char_position(a,'!'));
     printf("LOWERCASE? = %d\n", is_lowercase(a));
