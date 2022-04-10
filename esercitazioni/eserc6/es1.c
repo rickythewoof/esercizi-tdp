@@ -10,22 +10,14 @@ double product(float vec[], int n){
         return vec[0] * product(vec+1, n-1);
 }
 
-void vec_integral1(float* v, int n, int pos){
-    if (n == pos)
-        return;
+void vec_integral(float* v, int n){
+    if (n == 1)
+        *v += *(v-1);
     else{
-        for (int i = 0; i < pos; i++){
-            float val = v[i];
-            float valFIN = v[pos];
-            v[pos]+= v[i];
-        }
-        return vec_integral1(v, n, pos+1);
+        *v += *(v-1);
+        vec_integral(v+1, n-1);
     }
         
-}
-
-void vec_integral(float* v, int n){
-    return vec_integral1(v, n, 0);
 }
 
 int length(char * s){
