@@ -24,13 +24,15 @@ TipoSCL scl_positives(TipoSCL scl);
 
 int main(){
     TipoSCL scl1;
-    mkSCL(&scl1, 5, 2);
+    mkSCL(&scl1, 5, -2);
     scl_print(scl1);
     printf("LEN = %d\n", scl_len(scl1));
     printf("SUM = %f\n",scl_sum(scl1));
+    printf("MED = %f\n",scl_media(scl1));
     TipoSCL scl2; mkSCL(&scl2, 5, 10);
     printf("PROD = %f\n", scl_dot(scl1,scl2));
     scl_duplicate_pos(scl2, 3); scl_print(scl2);
+    TipoSCL scl3 = scl_positives(scl1); scl_print(scl3);
     return 0;
 }
 
@@ -69,7 +71,10 @@ float scl_sum(TipoSCL scl){
 float scl_media(TipoSCL scl){
     if (scl == NULL) return 0;
     else
-        return 1;
+    {
+        float c = scl->info + scl_sum(scl->next);
+        return c / scl_len(scl);
+    }
 }
 
 float scl_dot(TipoSCL scl1, TipoSCL scl2){
@@ -87,17 +92,14 @@ void scl_duplicate_pos(TipoSCL scl, int pos){
     else scl_duplicate_pos(scl->next, pos-1);
 }
 
-void scl_add_elem(TipoSCL scl, TipoInfoSCL info){
-    TipoSCL temp = (TipoNodoSCL*)malloc(sizeof(TipoNodoSCL ));
-    temp -> info = info;
-    temp -> next = NULL;
-    scl -> next = temp;
+TipoSCL scl_positives(TipoSCL scl){
+    if (scl == NULL) return NULL;
+    else if (scl->info >= 0){
+        TipoSCL new = (TipoSCL)malloc(sizeof(TipoNodoSCL));
+        new->info = scl->info;
+        new->next = scl_positives(scl->next);
+        return new;
+    }
+    else scl_positives(scl->next);
 }
 
-// TipoSCL scl_positives(TipoSCL scl){
-//     if (scl == NULL) return boh;
-//     else if (scl->info > 0){
-//         scl = ()
-//     }
-//     else scl_positives(scl->next)
-// }
