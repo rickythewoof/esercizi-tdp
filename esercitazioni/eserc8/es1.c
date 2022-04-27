@@ -22,7 +22,7 @@ int main(){
   printf("SUBSET = %d\n", subset(ins3, ins1));
   printf("EQUAL = %d\n", equal(ins3, ins1));
   Insieme inters = intersection(ins1, ins3);printf("INTERSECT = "); print(inters);
-  Insieme unione = union1(ins1, ins3); printf("UNION = "); print(unione);
+  Insieme unione1 = union1(ins1, ins3); printf("UNION = "); print(unione1);
   return 0;
 }
 
@@ -104,20 +104,15 @@ Insieme intersection(Insieme a, Insieme b){
   }
 }
 
-Insieme union1_aux(IteratoreInsieme it, Insieme b){
-  if (!hasNext(it)) return b;
+Insieme union1_aux(IteratoreInsieme it_a, Insieme b){
+  if (!hasNext(it_a)) return b;
   else{
-    T val = next(it);
-    Insieme withoutVal = elimina(*it, val);
-    if (!membro(b, val)) return inserisci(union1_aux(creaIteratoreInsieme(withoutVal), b), val);
-    else return union1_aux(it, b);
+    T val = next(it_a);
+    return inserisci(union1_aux(it_a,b), val);
   }
 }
 
 Insieme union1(Insieme a, Insieme b){
-  if (estVuoto(a)) return b;
-  else{
-    IteratoreInsieme it = creaIteratoreInsieme(a);
-    return intersection_aux(it, b);
-  }
+  IteratoreInsieme it = creaIteratoreInsieme(a);
+  return union1_aux(it, b);
 }
