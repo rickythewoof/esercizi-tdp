@@ -9,7 +9,7 @@ int size(Insieme s);
 bool subset(Insieme a, Insieme b);
 bool equal(Insieme a, Insieme b);
 Insieme intersection(Insieme a, Insieme b);
-Insieme unione(Insieme a, Insieme b);
+Insieme union1(Insieme a, Insieme b);
 
 int main(){
   T arr1[5] = {1, 2, 3, 3, 5};
@@ -22,15 +22,13 @@ int main(){
   printf("SUBSET = %d\n", subset(ins3, ins1));
   printf("EQUAL = %d\n", equal(ins3, ins1));
   Insieme inters = intersection(ins1, ins3);printf("INTERSECT = "); print(inters);
+  Insieme unione = union1(ins1, ins3); printf("UNION = "); print(unione);
   return 0;
 }
 
 Insieme init(T *arr, int n){
-  Insieme ins = insiemeVuoto();
-  for (int i = 0; i < n; i++){
-      ins = inserisci(ins, arr[i]);
-    }
-  return ins;
+  if (n==0) return insiemeVuoto();
+  else return inserisci(init(arr+1,n-1), *arr);
 }
 
 void print_aux(IteratoreInsieme it){
@@ -47,14 +45,18 @@ void print(Insieme s){
   print_aux(it);
 }
 
-Insieme copy(Insieme s){
-  Insieme copy = insiemeVuoto();
-  IteratoreInsieme it = creaIteratoreInsieme(s);
-  while(hasNext(it)){
-    T info = next(it);
-    copy = inserisci(copy, info);
+Insieme copy_aux(IteratoreInsieme it)
+{
+  if (!hasNext(it)) return insiemeVuoto();
+  else{
+    T value = next(it);
+    return inserisci(copy_aux(it), value);
   }
-  return copy;
+}
+
+Insieme copy(Insieme s){
+  IteratoreInsieme it = creaIteratoreInsieme(s);
+  return copy_aux(it);
 }
 
 int size(Insieme s){
@@ -67,46 +69,55 @@ int size(Insieme s){
   return num * sizeof(int);
 }
 
-bool subset(Insieme a, Insieme b){
-  IteratoreInsieme it = creaIteratoreInsieme(a);
-  while(hasNext(it)){
-    if(!membro(b, next(it))) return 0;
+bool subset_aux(IteratoreInsieme it, Insieme b){
+  if (!hasNext(it)) return 1;
+  else{
+    T elem = next(it);
+    return (membro(b, elem)) && subset_aux(it, b);
   }
-  return 1;
 }
 
-bool equal_aux(IteratoreInsieme it1,IteratoreInsieme it2){
-  if (!hasNext(it1) && !hasNext(it2)) return 1;
-  else if ((!hasNext(it1) && hasNext(it2)) || (hasNext(it1) && !hasNext(it2))) return 0;
-  else{
-    return (next(it1) == next(it2)) && equal_aux(it1, it2);
-  }
+bool subset(Insieme a, Insieme b){
+  IteratoreInsieme it = creaIteratoreInsieme(a);
+  return subset_aux(it, b);
 }
 
 bool equal(Insieme a, Insieme b){
-  IteratoreInsieme it1 = creaIteratoreInsieme(a);
-  IteratoreInsieme it2 = creaIteratoreInsieme(b);
-  bool same = equal_aux(it1, it2);
-  return same;
+  return subset(a, b) && subset(b, a);
 }
 
-Insieme intersection_aux(IteratoreInsieme it_a, Insieme b){
-  if (!hasNext(it_a)) return NULL;
+Insieme intersection_aux(IteratoreInsieme it, Insieme b){
+  if (!hasNext(it)) return insiemeVuoto();
   else{
-    Insieme inters = insiemeVuoto();
-    T val = next(it_a);
-    if(membro(b, val)) inters = inserisci(intersection_aux(it_a, b), val);
-    //inters = intersection_aux(it_a, b);
-    return inters;
+    T val = next(it);
+    Insieme withoutVal = elimina(*it, val);
+    if (membro(b, val)) return inserisci(intersection_aux(creaIteratoreInsieme(withoutVal), b), val);
+    else return intersection_aux(it, b);
   }
 }
 
 Insieme intersection(Insieme a, Insieme b){
-  Insieme inters = intersection_aux(creaIteratoreInsieme(a), b);
-  return inters;
+  if (estVuoto(a)) return insiemeVuoto();
+  else{
+    IteratoreInsieme it = creaIteratoreInsieme(a);
+    return intersection_aux(it, b);
+  }
 }
 
-Insieme unione(Insieme a, Insieme b){
-  Insieme un = copy(insieme b);
+Insieme union1_aux(IteratoreInsieme it, Insieme b){
+  if (!hasNext(it)) return b;
+  else{
+    T val = next(it);
+    Insieme withoutVal = elimina(*it, val);
+    if (!membro(b, val)) return inserisci(union1_aux(creaIteratoreInsieme(withoutVal), b), val);
+    else return union1_aux(it, b);
+  }
+}
 
+Insieme union1(Insieme a, Insieme b){
+  if (estVuoto(a)) return b;
+  else{
+    IteratoreInsieme it = creaIteratoreInsieme(a);
+    return intersection_aux(it, b);
+  }
 }
