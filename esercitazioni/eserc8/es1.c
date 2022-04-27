@@ -86,13 +86,12 @@ bool equal(Insieme a, Insieme b){
   return subset(a, b) && subset(b, a);
 }
 
-Insieme intersection_aux(IteratoreInsieme it, Insieme b){
-  if (!hasNext(it)) return insiemeVuoto();
+Insieme intersection_aux(IteratoreInsieme it_a, Insieme b){
+  if (!hasNext(it_a)) return insiemeVuoto();
   else{
-    T val = next(it);
-    Insieme withoutVal = elimina(*it, val);
-    if (membro(b, val)) return inserisci(intersection_aux(creaIteratoreInsieme(withoutVal), b), val);
-    else return intersection_aux(it, b);
+    T val = next(it_a);
+    if (membro(b, val)) return inserisci(intersection_aux(it_a, b), val);
+    else return intersection_aux(it_a, b);
   }
 }
 
