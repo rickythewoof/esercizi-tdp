@@ -14,7 +14,7 @@ int main(){
   printf("LISTA =\t\t"); printlist(list1);
   printf("LISTA_D =\t"); printlist(doubledCopy(list1));
   printf("LISTA_MULT = \t"); printlist(multipleSublist(list1, 2));
-  printf("LISTA_SUB = \t"); printlist(subList(list1, 2, 5));
+  printf("LISTA_SUB = \t"); printlist(subList(list1, 1, 3));
   printf("LISTA_INT = \t"); printlist(interleave(list1, list1));
   return 0;
 }
@@ -45,10 +45,9 @@ TipoLista multipleSublist( TipoLista list, unsigned int m ){
 }
 
 TipoLista subList(TipoLista list, int start, int end){
-  if (estVuota(list)) return listaVuota();
-  T elem = car(list);
-  if (start <= elem && elem < end) return cons(elem, subList(cdr(list), start, end));
-  else return subList(cdr(list), start, end);
+  if (estVuota(list) || end == 0) return listaVuota();
+  else if (start == 0) return cons(car(list), subList(cdr(list), start, --end));
+  else return subList(cdr(list), --start, --end);
 }
 
 TipoLista interleave(TipoLista l1, TipoLista l2){
