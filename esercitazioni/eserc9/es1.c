@@ -24,17 +24,13 @@ TipoLista init(T *vec, int len){
   else return cons(*vec, init(vec+1, len-1));
 }
 
-TipoLista doubledCopy_aux(TipoLista list, int toRepeat){
-  if (estVuota(list)) return listaVuota();
-  T elem = car(list);
-  if (toRepeat == 1)
-    return cons(elem, doubledCopy_aux(list,0));
-  else
-    return cons(elem, doubledCopy_aux(cdr(list),1));
-}
 
 TipoLista doubledCopy(TipoLista list){
-  return doubledCopy_aux(list, 1);
+  if (estVuota(list)) return listaVuota();
+  else{
+    T elem = car(list);
+    return cons(elem,(cons(elem, doubledCopy(cdr(list)))));
+  }
 }
 
 TipoLista multipleSublist( TipoLista list, unsigned int m ){
