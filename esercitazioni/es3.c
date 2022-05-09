@@ -12,40 +12,34 @@ int main(){
     return 0;
 }
 
-// int fibonacci(int n){
-//     Pila* p = pilaVuota();
-//     for (int i = 0; i <= n; i++){
-//         T x;
-//         if(i == 0)
+int fibonacci(int n){
+    Pila* p = pilaVuota();
+    T x;
+    x.a = n; x.b = n-1;
+    inPila(p,x);
+    int ris;
+    while(!estPilaVuota(p)){
+        T val;
+        if (primoPila(p).a == 0|| primoPila(p).b == 0){     //CASO BASE 1
 
-//         else if (i == 1)
+        }
+        else if (primoPila(p).a == 1|| primoPila(p).b == 1) //CASO BASE 2
+        {
 
-//         else
-//             x.a = i-2; x.b = i-1;
-//         inPila(p,x);
-//         n -= 1;
-//     }
-//     T x;
-//     x.a = 0; x.b = 1;
-//     inPila(p,x);
-//     int res;
-//     while(!estPilaVuota(p)){
-//         printf("ITERAZIONE con res = %d\n", res);
-//         res += outPila(p).a + outPila(p).b;
-//     }
-//     return res;
-// }
+        }
+        else if (n > 0){                                    //CASO RICORSIVO
+            val.a = n-2; val.b = n-1;
+            n-=2;
+        }
+        else{                                               //CASO DI CADUTA
+            printf("%d\n",outPila(p).a);
+        }
+    }
+    return res;
+}
 
 int factorial(int n){
     Pila* p = pilaVuota();
-    // for (int i = 0; i <= n; i++){
-    //     T x;
-    //     if (i == 0)
-    //         x.a = 1;
-    //     else
-    //         x.a = i;
-    //     inPila(p,x);
-    // }
     T x; x.a = n;
     inPila(p, x);
     int ris = -1;
@@ -56,7 +50,7 @@ int factorial(int n){
             outPila(p);
             ris = 1;
         }
-        else if (primoPila(p).a > 0 && ris == -1){
+        else if (ris == -1){
             printf("caso ricorsivo\n");
             val.a = primoPila(p).a - 1;
             inPila(p, val);
