@@ -111,7 +111,7 @@ bool check_palindrome_r(const char* s){
 int* rimuoviMinori(int* arr, int len){
   int* res;
   for (int i = 0; i < len; i++){
-
+    
   }
   return res;
 }
@@ -176,7 +176,6 @@ Coda * coda_circolare(Coda *c, int n){
       inCoda(ris, outCoda(c));
     }
     else{
-      printf("Coda finita, RIEMPIO CON TEMP!\n");
       while(!estCodaVuota(temp))
         inCoda(c, outCoda(temp));
       inCoda(temp, primoCoda(c));
@@ -195,10 +194,9 @@ Coda * coda_circolare(Coda *c, int n){
 Coda * elementi_pari(Coda *c){
   Coda* ris = codaVuota();
   while(!estCodaVuota(c)){
+    inCoda(ris, outCoda(c));
     if (!estCodaVuota(c))
-      outCoda(ris);
-    inCoda(ris, outCoda(ris));
-    print_coda(ris);
+      outCoda(c);
   }
   return ris;
 }
