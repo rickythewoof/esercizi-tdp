@@ -1,8 +1,8 @@
 // Tipo info dell'albero
-typedef char TipoInfoAlbero;
+typedef int TipoInfoAlbero;
 
 // Valore di errore
-TipoInfoAlbero ERRORE_InfoAlbBin='*';
+// TipoInfoAlbero ERRORE_InfoAlbBin='*';
 
 // Albero con strutture collegate
 typedef struct StructAlbero {
@@ -19,3 +19,5 @@ bool estVuoto(TipoAlbero a);
 TipoInfoAlbero radice(TipoAlbero a);
 TipoAlbero sinistro(TipoAlbero a);
 TipoAlbero destro(TipoAlbero a);
+
+void stampaParentetica(TipoAlbero a);

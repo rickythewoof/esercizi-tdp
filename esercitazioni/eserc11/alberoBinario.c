@@ -24,7 +24,7 @@ bool estVuoto(TipoAlbero a) {
 TipoInfoAlbero radice(TipoAlbero a) {
   if (a == NULL) {
     printf ("ERRORE accesso albero vuoto \n");
-    return ERRORE_InfoAlbBin;
+    return '*';
   } else {
     return a->info;
   }
@@ -57,7 +57,7 @@ void stampaParentetica(TipoAlbero a) {
         printf("()");
     }
     else {
-        printf("( %c ", radice(a));
+        printf("( %d ", radice(a));
         stampaParentetica(sinistro(a));
         printf(" ");
         stampaParentetica(destro(a));
