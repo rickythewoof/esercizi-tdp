@@ -9,7 +9,7 @@ TipoLista listaVuota() { return NULL; }
 
 int estVuota(TipoLista l) { return (l == NULL); }
 
-TipoLista cons(TipoInfoSCL e, TipoLista l)
+TipoLista cons(T e, TipoLista l)
 {
   TipoLista nuovo = (TipoLista)malloc(sizeof(TipoNodo));
   nuovo->info = e;
@@ -17,7 +17,7 @@ TipoLista cons(TipoInfoSCL e, TipoLista l)
   return nuovo;
 }
 
-TipoInfoSCL car(TipoLista l)
+T car(TipoLista l)
 {
   if (l == NULL)
   {
