@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
@@ -8,8 +7,8 @@
 
 
 typedef struct {
-    int rows;
-    int cols;
+    char rows;
+    char cols;
     float **rows_pt;
     } Mat;
 

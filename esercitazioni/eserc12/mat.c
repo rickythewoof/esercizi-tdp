@@ -1,4 +1,7 @@
 #include "mat.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 Mat* mat_alloc(int rows, int cols){
     Mat* m = (Mat*) malloc (1*sizeof(Mat));
@@ -16,7 +19,7 @@ void mat_print(Mat* m){
     int colonne = m->cols;
     for (int i = 0; i < righe; i++){
         for (int j = 0; j < colonne; j++){
-            printf("%f ",m->rows_pt[i][j]);
+            printf("%c ",(char) m->rows_pt[i][j]);
         }
         printf("\n");
     }
