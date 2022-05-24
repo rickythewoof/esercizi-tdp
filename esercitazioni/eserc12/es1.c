@@ -78,14 +78,25 @@ int livelli_completi(TipoAlbero a){
     return livelli_completi_aux(a);
 }
 
+TipoLista listaNodiFoglia_aux(TipoAlbero a, TipoLista l){
+  if (estFoglia(a)) return cons(radice(a), l);
+  else{
+    if(!estVuoto(destro(a))){
+      l = listaNodiFoglia_aux(destro(a),l);
+    }
+    if(!estVuoto(sinistro(a))){
+      l = listaNodiFoglia_aux(sinistro(a),l);
+    }
+    return l;
+  }
+}
 
 TipoLista listaNodiFoglia(TipoAlbero a){
-  if(estVuoto(a)) return listaVuota();
-  else if (estFoglia(a)) return cons(radice(a), listaVuota());
+  if (estVuoto(a))
+    return listaVuota();
   else{
     TipoLista l = listaVuota();
-    l = cons(car(listaNodiFoglia(sinistro(a))),l);
-    l = cons(car(listaNodiFoglia(destro(a))),l);
+    l = listaNodiFoglia_aux(a, l);
     return l;
   }
 }
